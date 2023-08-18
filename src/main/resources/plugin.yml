@@ -1,0 +1,4 @@
+name: BoostersMiniGameAddon
+main: pl.timsixth.boostersaddon.BoostersMiniGameAddon
+version: '1.0.1'
+author: timsixth
