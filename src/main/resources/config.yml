@@ -1,0 +1,13 @@
+giveBoosterNameMenuTitle: '&aType booster name'
+giveBoosterDisplayNameMenuTitle: '&aType booster displayName'
+giveBoosterDurationMenuTitle: '&aType booster duration'
+giveBoosterMultiplierMenuTitle: '&aType booster multiplier'
+
+messages:
+  invalidBoosterMultiplier: '&cCan not create booster, multiplier is invalid'
+  createdBooster: '&aYou have created booster'
+  adminHelp:
+    - '&7/&a{admin_command} booster create <booster_name> &7- Opens GUI to creation boosters'
+    - '&7/&a{admin_command} booster help &7- All booster commands'
+    - '&7/&a{admin_command} booster give <booster_name> <global|player_name> &7- Gives booster to everyone or someone'
+    - '&7/&a{admin_command} booster player <player_name> &7- Opens GUI with player''s boosters'

@@ -6,11 +6,15 @@
 
     <groupId>pl.timsixth</groupId>
     <artifactId>BoostersMiniGameAddon</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <repositories>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
     <dependencies>
@@ -20,7 +24,89 @@
             <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.timsixth.MinigameAPI</groupId>
+            <artifactId>library</artifactId>
+            <version>v1.0.0-rc3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.26</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.timsixth.T-GuiApi</groupId>
+            <artifactId>core</artifactId>
+            <version>v2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.timsixth.T-GuiApi</groupId>
+            <artifactId>processes</artifactId>
+            <version>v2.0.0</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <relocations>
+                                <relocation>
+                                    <pattern>pl.timsixth.guilibrary.core</pattern>
+                                    <shadedPattern>pl.timsixth.boostersaddon.guilibrary.core</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>pl.timsixth.guilibrary.processes</pattern>
+                                    <shadedPattern>pl.timsixth.boostersaddon.processes</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>net.wesjd.anvilgui</pattern>
+                                    <shadedPattern>pl.timsixth.boostersaddon.anvilgui</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <filters>
+                                <filter>
+                                    <artifact>>com.github.timsixth.T-GuiApi:core</artifact>
+                                    <excludeDefaults>false</excludeDefaults>
+                                    <includes>
+                                        <include>pl.timsixth.boostersaddon.guilibrary.core</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>com.github.timsixth.T-GuiApi:processes</artifact>
+                                    <excludeDefaults>false</excludeDefaults>
+                                    <includes>
+                                        <include>pl.timsixth.boostersaddon.processes</include>
+                                    </includes>
+                                </filter>
+
+                                <filter>
+                                    <artifact>net.wesjd:anvilgui</artifact>
+                                    <excludeDefaults>false</excludeDefaults>
+                                    <includes>
+                                        <include>pl.timsixth.boostersaddon.anvilgui</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

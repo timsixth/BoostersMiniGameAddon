@@ -1,0 +1,21 @@
+guis:
+  boosterTypeMenu:
+    size: 9
+    displayname: '&aType booster type'
+    empty_slots:
+      material: 'BLACK_STAINED_GLASS_PANE'
+    slots:
+      4:
+        material: 'GREEN_DYE'
+        displayname: '&aTemporary'
+        click_action:
+          type: 'CHOOSE_BOOSTER_TYPE'
+          args:
+            - 'TEMPORARY'
+      6:
+        material: 'RED_DYE'
+        displayname: '&aPermanently'
+        click_action:
+          type: 'CHOOSE_BOOSTER_TYPE'
+          args:
+            - 'PERMANENTLY'
