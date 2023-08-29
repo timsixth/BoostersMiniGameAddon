@@ -44,7 +44,6 @@ public class GiveBoosterName extends AbstractSubGuiProcess implements WriteableI
                         );
                     }
                 })
-                .plugin(BoostersMiniGameAddon.getPlugin(BoostersMiniGameAddon.class))
-                .preventClose();
+                .plugin(BoostersMiniGameAddon.getPlugin(BoostersMiniGameAddon.class));
     }
 }

@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public interface TemporaryBooster extends Booster {
 
-    long getTime();
+    int getTime();
 
     TimeUnit getTimeUnit();
 }

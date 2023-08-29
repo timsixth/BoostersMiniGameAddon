@@ -5,17 +5,30 @@ guis:
     empty_slots:
       material: 'BLACK_STAINED_GLASS_PANE'
     slots:
-      4:
+      3:
         material: 'GREEN_DYE'
         displayname: '&aTemporary'
         click_action:
           type: 'CHOOSE_BOOSTER_TYPE'
           args:
             - 'TEMPORARY'
-      6:
+      5:
         material: 'RED_DYE'
         displayname: '&aPermanently'
         click_action:
           type: 'CHOOSE_BOOSTER_TYPE'
           args:
             - 'PERMANENTLY'
+  yourBoosters:
+    size: 54
+    displayname: '&aYour boosters'
+    empty_slots:
+      material: 'BLACK_STAINED_GLASS_PANE'
+    slots:
+      0:
+        material: 'RED_WOOL'
+        displayname: '&cList is empty'
+        click_action:
+          type: ''
+          args:
+            - ''

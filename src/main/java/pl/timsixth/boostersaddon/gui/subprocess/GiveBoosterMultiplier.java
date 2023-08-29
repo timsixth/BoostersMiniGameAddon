@@ -46,7 +46,6 @@ public class GiveBoosterMultiplier extends AbstractSubGuiProcess implements Writ
                         );
                     }
                 })
-                .plugin(BoostersMiniGameAddon.getPlugin(BoostersMiniGameAddon.class))
-                .preventClose();
+                .plugin(BoostersMiniGameAddon.getPlugin(BoostersMiniGameAddon.class));
     }
 }

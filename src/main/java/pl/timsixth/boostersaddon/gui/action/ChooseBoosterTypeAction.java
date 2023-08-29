@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import pl.timsixth.boostersaddon.BoostersMiniGameAddon;
 import pl.timsixth.boostersaddon.config.Messages;
+import pl.timsixth.boostersaddon.manager.BoosterManager;
 import pl.timsixth.boostersaddon.model.BoosterFileModel;
 import pl.timsixth.boostersaddon.model.BoosterType;
 import pl.timsixth.boostersaddon.model.impl.BoosterImpl;
@@ -33,6 +34,7 @@ public class ChooseBoosterTypeAction extends AbstractAction implements ClickActi
         BoosterType boosterType = BoosterType.valueOf(menuItem.getAction().getArgs().get(0));
         Player player = (Player) event.getWhoClicked();
         MainGuiProcess currentUserProcess = ProcessRunner.getCurrentUserProcess(player);
+        BoosterManager<BoosterFileModel> boosterManager = boostersMiniGameAddon.getBoosterManager();
 
         if (currentUserProcess == null) {
             event.setCancelled(true);
@@ -51,7 +53,6 @@ public class ChooseBoosterTypeAction extends AbstractAction implements ClickActi
         if (boosterType == BoosterType.TEMPORARY) {
 
             transformedData.forEach(subGuiProcess::transformData);
-            subGuiProcess.transformData("type", BoosterType.TEMPORARY);
             subGuiProcess.setEnded(true);
 
             ProcessRunner.runSubProcess(player, subGuiProcess.nextProcess());
@@ -65,23 +66,36 @@ public class ChooseBoosterTypeAction extends AbstractAction implements ClickActi
 
         if (!isDouble(multiplier)) {
             player.sendMessage(messages.getInvalidBoosterMultiplier());
-            player.closeInventory();
+            endProcess(subGuiProcess, player, currentUserProcess);
             return;
-        } else {
-            BoosterFileModel boosterFileModel = new BoosterImpl(
-                    String.valueOf(transformedData.get("name")),
-                    boosterType,
-                    Double.parseDouble(multiplier),
-                    String.valueOf(transformedData.get("displayName"))
-            );
-
-            boostersMiniGameAddon.getBoosterManager().addBooster(boosterFileModel);
-            boosterFileModel.save();
         }
 
+        String name = String.valueOf(transformedData.get("name"));
+
+        if (boosterManager.getBoosterByName(name).isPresent()){
+            player.sendMessage(messages.getBoosterAlreadyExists());
+            endProcess(subGuiProcess, player, currentUserProcess);
+            return;
+        }
+
+        BoosterFileModel boosterFileModel = new BoosterImpl(
+                name,
+                boosterType,
+                Double.parseDouble(multiplier),
+                String.valueOf(transformedData.get("displayName"))
+        );
+
+        boosterManager.addBooster(boosterFileModel);
+        boosterFileModel.save();
+        player.sendMessage(messages.getCreatedBooster());
+
+
+        endProcess(subGuiProcess, player, currentUserProcess);
+    }
+
+    private void endProcess(SubGuiProcess subGuiProcess, Player player, MainGuiProcess currentUserProcess) {
         subGuiProcess.setEnded(true);
         ProcessRunner.endProcess(player, currentUserProcess);
-
         player.closeInventory();
     }
 }

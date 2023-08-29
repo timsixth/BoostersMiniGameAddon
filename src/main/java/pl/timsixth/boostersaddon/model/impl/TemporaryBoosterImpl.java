@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 @SingleFile(fileName = "boosters.yml", primarySection = "boosters")
 public class TemporaryBoosterImpl extends BoosterImpl implements TemporaryBoosterFileModel {
 
-    private final long time;
+    private final int time;
     private final TimeUnit timeUnit;
 
-    public TemporaryBoosterImpl(String name, BoosterType type, double multiplier, String displayName, long time, TimeUnit timeUnit) {
+    public TemporaryBoosterImpl(String name, BoosterType type, double multiplier, String displayName, int time, TimeUnit timeUnit) {
         super(name, type, multiplier, displayName);
         this.time = time;
         this.timeUnit = timeUnit;
@@ -34,16 +34,16 @@ public class TemporaryBoosterImpl extends BoosterImpl implements TemporaryBooste
         data.put("multiplier", getMultiplier());
         data.put("displayName", getDisplayName());
         data.put("time", time);
-        data.put("timeUnit", timeUnit);
+        data.put("timeUnit", timeUnit.name());
 
         return data;
     }
 
-    public static BoosterImpl deserialize(Map<String, Object> args) {
+    public static TemporaryBoosterImpl deserialize(Map<String, Object> args) {
         return new TemporaryBoosterImpl(String.valueOf(args.get("name")),
                 BoosterType.valueOf(String.valueOf(args.get("boosterType"))),
                 (double) args.get("multiplier"), String.valueOf(args.get("displayName")),
-                (long) args.get("time"), TimeUnit.valueOf(String.valueOf(args.get("timeUnit")))
+                (int) args.get("time"), TimeUnit.valueOf(String.valueOf(args.get("timeUnit")))
         );
     }
 }

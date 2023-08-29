@@ -5,13 +5,11 @@ import pl.timsixth.minigameapi.api.user.User;
 import java.util.List;
 
 public interface UserBoosters extends User {
-
-    List<UserBooster> getActivatedBoosters();
-
     List<UserBooster> getBoosters();
 
-    int getFullMultiplier();
+    double getFullMultiplier();
 
-    void setFullMultiplier(int newMultiplier);
+    void addBooster(UserBooster userBooster);
 
+    boolean hasBooster(UserBooster booster);
 }

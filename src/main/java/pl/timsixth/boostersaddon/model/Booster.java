@@ -9,6 +9,4 @@ public interface Booster {
     double getMultiplier();
 
     String getDisplayName();
-
-    void setDisplayName(String displayName);
 }

@@ -13,4 +13,13 @@ public class NumberUtil {
             return false;
         }
     }
+
+    public static boolean isInt(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException exception) {
+            return false;
+        }
+    }
 }

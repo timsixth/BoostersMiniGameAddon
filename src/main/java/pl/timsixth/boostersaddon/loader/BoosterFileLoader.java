@@ -3,10 +3,10 @@ package pl.timsixth.boostersaddon.loader;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import pl.timsixth.boostersaddon.model.impl.BoosterImpl;
-import pl.timsixth.boostersaddon.model.impl.TemporaryBoosterImpl;
 import pl.timsixth.boostersaddon.model.BoosterFileModel;
 import pl.timsixth.boostersaddon.model.BoosterType;
+import pl.timsixth.boostersaddon.model.impl.BoosterImpl;
+import pl.timsixth.boostersaddon.model.impl.TemporaryBoosterImpl;
 import pl.timsixth.minigameapi.api.MiniGame;
 import pl.timsixth.minigameapi.api.loader.file.AbstractFileLoader;
 import pl.timsixth.minigameapi.api.util.ConfigurationSectionUtil;
@@ -32,12 +32,13 @@ public class BoosterFileLoader extends AbstractFileLoader<BoosterFileModel> {
         ConfigurationSection section = ConfigurationSectionUtil.getSection(yamlConfiguration, primarySection);
 
         for (String key : section.getKeys(false)) {
-            ConfigurationSection nameSection = ConfigurationSectionUtil.getSection(yamlConfiguration, key);
 
-            BoosterType boosterType = BoosterType.valueOf(nameSection.getString("boosterType"));
+            BoosterFileModel booster = section.getObject(key, BoosterImpl.class);
 
-            if (boosterType == BoosterType.TEMPORARY) this.addObject(section.getObject(key, BoosterImpl.class));
-            else this.addObject(section.getObject(key, TemporaryBoosterImpl.class));
+            if (booster.getType() == BoosterType.TEMPORARY)
+                booster = section.getObject(key, TemporaryBoosterImpl.class);
+
+            this.addObject(booster);
         }
     }
 }
