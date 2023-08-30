@@ -25,7 +25,7 @@ guis:
     empty_slots:
       material: 'BLACK_STAINED_GLASS_PANE'
     slots:
-      0:
+      22:
         material: 'RED_WOOL'
         displayname: '&cList is empty'
         click_action:

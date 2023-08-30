@@ -12,17 +12,15 @@ import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
 import pl.timsixth.minigameapi.api.util.ChatUtil;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
+
+import static pl.timsixth.boostersaddon.model.user.impl.UserBoosterImpl.DATE_TIME_FORMATTER;
 
 @RequiredArgsConstructor
 public class UserBoostersTimer extends BukkitRunnable {
 
     private final UserBoostersManager<UserBoostersDbModel> userBoostersManager;
     private final Messages messages;
-
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     @Override
     public void run() {
 
@@ -32,8 +30,8 @@ public class UserBoostersTimer extends BukkitRunnable {
 
                 if (userBooster.getEndDate() == null) continue;
 
-                String formatNow = LocalDateTime.now().format(formatter);
-                String formatEndDate = userBooster.getEndDate().format(formatter);
+                String formatNow = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+                String formatEndDate = userBooster.getEndDate().format(DATE_TIME_FORMATTER);
 
                 if (formatNow.equalsIgnoreCase(formatEndDate)) {
                     OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(userBooster.getUuid());

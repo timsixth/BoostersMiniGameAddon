@@ -26,6 +26,9 @@ public class UserBoosterImpl extends AbstractDbModel implements UserBoosterDbMod
     private final LocalDateTime startedDate;
     private final LocalDateTime endDate;
 
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+
     public UserBoosterImpl(UUID uuid, Booster booster, LocalDateTime startedDate, LocalDateTime endDate) {
         this.uuid = uuid;
         this.booster = booster;
@@ -91,7 +94,7 @@ public class UserBoosterImpl extends AbstractDbModel implements UserBoosterDbMod
             menuItem = new MenuItem(slot, Material.GOLD_INGOT, ChatUtil.chatColor(booster.getDisplayName()),
                     ChatUtil.chatColor(Arrays.asList("&aType:&7 " + booster.getType(),
                             "&aMultiplier:&7 " + booster.getMultiplier(),
-                            "&aEnd date:&7 " + endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).replace("T", " "))));
+                            "&aEnd date:&7 " + endDate.format(DATE_TIME_FORMATTER))));
 
         menuItem.setAction(new NoneClickAction());
 
