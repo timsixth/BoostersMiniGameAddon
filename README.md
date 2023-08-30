@@ -5,7 +5,7 @@ Thanks to this addon you can add coins boosters to your minigame.
 
 ## How to install?
 
-You can install by install command or download plugin from realeses section. 
+You can install by install command or download plugin from releases section. 
 
 `
 /minigameapi addon install timsixth/BoostersMiniGameAddon latest
