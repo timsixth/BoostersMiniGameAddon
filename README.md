@@ -14,10 +14,10 @@ You can install by install command or download plugin from releases section.
 ## Commands
 
 Admin commands
-- {minigame_admin_command} booster create - Creates new booster
-- {minigame_admin_command} booster list - List of all boosters
-- {minigame_admin_command} booster give <global|player_name> <booster_name> - Gives booster to everyone or someone
-- {minigame_admin_command} booster help - All booster commands
+- /{minigame_admin_command} booster create - Creates new booster
+- /{minigame_admin_command} booster list - List of all boosters
+- /{minigame_admin_command} booster give <global|player_name> <booster_name> - Gives booster to everyone or someone
+- /{minigame_admin_command} booster help - All booster commands
 
 Player commands:
 - /{minigame_player_command} booster help - All booster commands
