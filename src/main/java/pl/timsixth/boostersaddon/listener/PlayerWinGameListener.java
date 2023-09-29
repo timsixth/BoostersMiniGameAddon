@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import pl.timsixth.boostersaddon.manager.UserBoostersManager;
-import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
-import pl.timsixth.minigameapi.api.coins.UserCoinsDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBoosters;
+import pl.timsixth.minigameapi.api.coins.UserCoins;
 import pl.timsixth.minigameapi.api.coins.manager.UserCoinsManager;
 import pl.timsixth.minigameapi.api.game.event.PlayerWinGameEvent;
 
@@ -15,21 +15,21 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlayerWinGameListener implements Listener {
 
-    private final UserCoinsManager<UserCoinsDbModel> userCoinsManager;
-    private final UserBoostersManager<UserBoostersDbModel> userBoostersManager;
+    private final UserCoinsManager userCoinsManager;
+    private final UserBoostersManager userBoostersManager;
 
     @EventHandler
     private void onWin(PlayerWinGameEvent event) {
         Player player = event.getPlayer();
 
-        Optional<UserBoostersDbModel> userBoostersOptional = userBoostersManager.getUserByUuid(player.getUniqueId());
-        Optional<UserCoinsDbModel> userCoinsOptional = userCoinsManager.getUserByUuid(player.getUniqueId());
+        Optional<UserBoosters> userBoostersOptional = userBoostersManager.getUserByUuid(player.getUniqueId());
+        Optional<UserCoins> userCoinsOptional = userCoinsManager.getUserByUuid(player.getUniqueId());
 
         if (!userBoostersOptional.isPresent()) return;
         if (!userCoinsOptional.isPresent()) return;
 
-        UserBoostersDbModel userBoostersDbModel = userBoostersOptional.get();
-        UserCoinsDbModel userCoinsDbModel = userCoinsOptional.get();
+        UserBoosters userBoostersDbModel = userBoostersOptional.get();
+        UserCoins userCoinsDbModel = userCoinsOptional.get();
 
         double fullMultiplier = userBoostersDbModel.getFullMultiplier();
 

@@ -8,9 +8,8 @@ import pl.timsixth.boostersaddon.BoostersMiniGameAddon;
 import pl.timsixth.boostersaddon.config.Messages;
 import pl.timsixth.boostersaddon.config.Settings;
 import pl.timsixth.boostersaddon.manager.BoosterManager;
-import pl.timsixth.boostersaddon.model.BoosterFileModel;
 import pl.timsixth.boostersaddon.model.BoosterType;
-import pl.timsixth.boostersaddon.model.TemporaryBoosterFileModel;
+import pl.timsixth.boostersaddon.model.TemporaryBooster;
 import pl.timsixth.boostersaddon.model.impl.TemporaryBoosterImpl;
 import pl.timsixth.boostersaddon.util.TextConverter;
 import pl.timsixth.guilibrary.processes.manager.ProcessRunner;
@@ -66,7 +65,7 @@ public class GiveBoosterDuration extends AbstractSubGuiProcess implements Writea
 
     private void createTemporaryBooster(String duration) {
         BoostersMiniGameAddon miniGameAddon = BoostersMiniGameAddon.getPlugin(BoostersMiniGameAddon.class);
-        BoosterManager<BoosterFileModel> boosterManager = miniGameAddon.getBoosterManager();
+        BoosterManager boosterManager = miniGameAddon.getBoosterManager();
         MainGuiProcess currentUserProcess = ProcessRunner.getCurrentUserProcess(player);
 
         Map<String, Object> transformedData = this.transformedData();
@@ -88,7 +87,7 @@ public class GiveBoosterDuration extends AbstractSubGuiProcess implements Writea
         }
         String name = String.valueOf(transformedData.get("name"));
 
-        if (boosterManager.getBoosterByName(name).isPresent()){
+        if (boosterManager.getBoosterByName(name).isPresent()) {
             player.sendMessage(messages.getBoosterAlreadyExists());
             ProcessRunner.endProcess(player, currentUserProcess);
             player.closeInventory();
@@ -97,7 +96,7 @@ public class GiveBoosterDuration extends AbstractSubGuiProcess implements Writea
 
         Object[] objects = TextConverter.convertToTime(duration);
 
-        TemporaryBoosterFileModel boosterFileModel = new TemporaryBoosterImpl(
+        TemporaryBooster boosterFileModel = new TemporaryBoosterImpl(
                 name,
                 BoosterType.TEMPORARY,
                 Double.parseDouble(multiplier),
@@ -107,7 +106,7 @@ public class GiveBoosterDuration extends AbstractSubGuiProcess implements Writea
         );
 
         ProcessRunner.endProcess(player, currentUserProcess);
-        miniGameAddon.getBoosterManager().addBooster((BoosterFileModel) boosterFileModel);
+        miniGameAddon.getBoosterManager().addBooster(boosterFileModel);
         boosterFileModel.save();
         player.sendMessage(messages.getCreatedBooster());
     }

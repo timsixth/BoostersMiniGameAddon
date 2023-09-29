@@ -5,7 +5,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import pl.timsixth.boostersaddon.BoostersMiniGameAddon;
 import pl.timsixth.boostersaddon.config.Messages;
 import pl.timsixth.boostersaddon.manager.BoosterManager;
-import pl.timsixth.boostersaddon.model.BoosterFileModel;
+import pl.timsixth.boostersaddon.model.Booster;
 import pl.timsixth.boostersaddon.model.BoosterType;
 import pl.timsixth.boostersaddon.model.impl.BoosterImpl;
 import pl.timsixth.guilibrary.core.model.MenuItem;
@@ -34,7 +34,7 @@ public class ChooseBoosterTypeAction extends AbstractAction implements ClickActi
         BoosterType boosterType = BoosterType.valueOf(menuItem.getAction().getArgs().get(0));
         Player player = (Player) event.getWhoClicked();
         MainGuiProcess currentUserProcess = ProcessRunner.getCurrentUserProcess(player);
-        BoosterManager<BoosterFileModel> boosterManager = boostersMiniGameAddon.getBoosterManager();
+        BoosterManager boosterManager = boostersMiniGameAddon.getBoosterManager();
 
         if (currentUserProcess == null) {
             event.setCancelled(true);
@@ -78,7 +78,7 @@ public class ChooseBoosterTypeAction extends AbstractAction implements ClickActi
             return;
         }
 
-        BoosterFileModel boosterFileModel = new BoosterImpl(
+        Booster boosterFileModel = new BoosterImpl(
                 name,
                 boosterType,
                 Double.parseDouble(multiplier),

@@ -10,9 +10,9 @@ import pl.timsixth.boostersaddon.factory.UserBoosterFactory;
 import pl.timsixth.boostersaddon.gui.process.CreateBoosterProcess;
 import pl.timsixth.boostersaddon.manager.BoosterManager;
 import pl.timsixth.boostersaddon.manager.UserBoostersManager;
-import pl.timsixth.boostersaddon.model.BoosterFileModel;
+import pl.timsixth.boostersaddon.model.Booster;
 import pl.timsixth.boostersaddon.model.user.UserBooster;
-import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBoosters;
 import pl.timsixth.boostersaddon.model.user.impl.UserBoostersImpl;
 import pl.timsixth.guilibrary.core.manager.YAMLMenuManager;
 import pl.timsixth.guilibrary.processes.manager.ProcessRunner;
@@ -27,8 +27,8 @@ public class AdminBoosterSubCommand implements SubCommand {
     private final Messages messages;
     private final Settings settings;
     private final YAMLMenuManager menuManager;
-    private final BoosterManager<BoosterFileModel> boosterManager;
-    private final UserBoostersManager<UserBoostersDbModel> userBoostersManager;
+    private final BoosterManager boosterManager;
+    private final UserBoostersManager userBoostersManager;
 
     @Override
     public boolean executeCommand(CommandSender sender, String[] args) {
@@ -47,17 +47,17 @@ public class AdminBoosterSubCommand implements SubCommand {
         } else if (args.length == 4) {
             if (args[1].equalsIgnoreCase("give")) {
                 if (args[2].equalsIgnoreCase("global")) {
-                    Optional<BoosterFileModel> boosterOptional = boosterManager.getBoosterByName(args[3]);
+                    Optional<Booster> boosterOptional = boosterManager.getBoosterByName(args[3]);
 
                     if (!boosterOptional.isPresent()) {
                         player.sendMessage(messages.getBoosterDoesNotExist());
                         return true;
                     }
 
-                    BoosterFileModel boosterFileModel = boosterOptional.get();
+                    Booster boosterFileModel = boosterOptional.get();
 
                     for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                        UserBoostersDbModel userBoostersDbModel = getUserBoostersDbModel(player);
+                        UserBoosters userBoostersDbModel = getUserBoostersDbModel(player);
                         if (giveBooster(onlinePlayer, boosterFileModel, userBoostersDbModel)) continue;
 
                         userBoostersDbModel.update();
@@ -71,15 +71,15 @@ public class AdminBoosterSubCommand implements SubCommand {
                         return true;
                     }
 
-                    Optional<BoosterFileModel> boosterOptional = boosterManager.getBoosterByName(args[3]);
+                    Optional<Booster> boosterOptional = boosterManager.getBoosterByName(args[3]);
 
                     if (!boosterOptional.isPresent()) {
                         player.sendMessage(messages.getBoosterDoesNotExist());
                         return true;
                     }
 
-                    UserBoostersDbModel userBoostersDbModel = getUserBoostersDbModel(player);
-                    BoosterFileModel boosterFileModel = boosterOptional.get();
+                    UserBoosters userBoostersDbModel = getUserBoostersDbModel(player);
+                    Booster boosterFileModel = boosterOptional.get();
 
                     if (giveBooster(player, boosterFileModel, userBoostersDbModel)) {
                         player.sendMessage(messages.getHaveThisBooster());
@@ -96,10 +96,10 @@ public class AdminBoosterSubCommand implements SubCommand {
         return false;
     }
 
-    private UserBoostersDbModel getUserBoostersDbModel(Player player) {
-        Optional<UserBoostersDbModel> userBoostersOptional = userBoostersManager.getUserByUuid(player.getUniqueId());
+    private UserBoosters getUserBoostersDbModel(Player player) {
+        Optional<UserBoosters> userBoostersOptional = userBoostersManager.getUserByUuid(player.getUniqueId());
 
-        UserBoostersDbModel userBoostersDbModel;
+        UserBoosters userBoostersDbModel;
         if (!userBoostersOptional.isPresent()) {
             userBoostersDbModel = new UserBoostersImpl(player.getUniqueId());
             userBoostersDbModel.save();
@@ -116,7 +116,7 @@ public class AdminBoosterSubCommand implements SubCommand {
         return "booster";
     }
 
-    private boolean giveBooster(Player player, BoosterFileModel boosterFileModel, UserBoostersDbModel userBoostersDbModel) {
+    private boolean giveBooster(Player player, Booster boosterFileModel, UserBoosters userBoostersDbModel) {
         UserBooster userBooster = UserBoosterFactory.createUserBooster(player.getUniqueId(), boosterFileModel);
 
         if (userBoostersDbModel.hasBooster(userBooster)) return true;

@@ -3,7 +3,7 @@ package pl.timsixth.boostersaddon.loader;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
-import pl.timsixth.boostersaddon.model.BoosterFileModel;
+import pl.timsixth.boostersaddon.model.Booster;
 import pl.timsixth.boostersaddon.model.BoosterType;
 import pl.timsixth.boostersaddon.model.impl.BoosterImpl;
 import pl.timsixth.boostersaddon.model.impl.TemporaryBoosterImpl;
@@ -13,7 +13,7 @@ import pl.timsixth.minigameapi.api.util.ConfigurationSectionUtil;
 
 import java.io.File;
 
-public class BoosterFileLoader extends AbstractFileLoader<BoosterFileModel> {
+public class BoosterFileLoader extends AbstractFileLoader<Booster> {
     @Override
     public void load() {
         load("boosters.yml", "boosters");
@@ -33,7 +33,7 @@ public class BoosterFileLoader extends AbstractFileLoader<BoosterFileModel> {
 
         for (String key : section.getKeys(false)) {
 
-            BoosterFileModel booster = section.getObject(key, BoosterImpl.class);
+            Booster booster = section.getObject(key, BoosterImpl.class);
 
             if (booster.getType() == BoosterType.TEMPORARY)
                 booster = section.getObject(key, TemporaryBoosterImpl.class);

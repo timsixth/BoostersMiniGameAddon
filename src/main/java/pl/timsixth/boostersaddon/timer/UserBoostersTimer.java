@@ -7,8 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import pl.timsixth.boostersaddon.config.Messages;
 import pl.timsixth.boostersaddon.manager.UserBoostersManager;
 import pl.timsixth.boostersaddon.model.user.UserBooster;
-import pl.timsixth.boostersaddon.model.user.UserBoosterDbModel;
-import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBoosters;
 import pl.timsixth.minigameapi.api.util.ChatUtil;
 
 import java.time.LocalDateTime;
@@ -19,12 +18,12 @@ import static pl.timsixth.boostersaddon.model.user.impl.UserBoosterImpl.DATE_TIM
 @RequiredArgsConstructor
 public class UserBoostersTimer extends BukkitRunnable {
 
-    private final UserBoostersManager<UserBoostersDbModel> userBoostersManager;
+    private final UserBoostersManager userBoostersManager;
     private final Messages messages;
     @Override
     public void run() {
 
-        for (UserBoostersDbModel user : userBoostersManager.getUsers()) {
+        for (UserBoosters user : userBoostersManager.getUsers()) {
             for (Iterator<UserBooster> it = user.getBoosters().iterator(); it.hasNext();) {
                 UserBooster userBooster = it.next();
 
@@ -36,7 +35,7 @@ public class UserBoostersTimer extends BukkitRunnable {
                 if (formatNow.equalsIgnoreCase(formatEndDate)) {
                     OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(userBooster.getUuid());
 
-                    UserBoosterDbModel userBoosterDbModel = (UserBoosterDbModel) userBooster;
+                    UserBoosters userBoosterDbModel = (UserBoosters) userBooster;
                     userBoosterDbModel.delete();
                     it.remove();
 

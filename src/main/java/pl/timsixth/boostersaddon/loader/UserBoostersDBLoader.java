@@ -2,7 +2,7 @@ package pl.timsixth.boostersaddon.loader;
 
 import lombok.RequiredArgsConstructor;
 import pl.timsixth.boostersaddon.model.user.UserBooster;
-import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBoosters;
 import pl.timsixth.boostersaddon.model.user.impl.UserBoostersImpl;
 import pl.timsixth.databasesapi.DatabasesApiPlugin;
 import pl.timsixth.databasesapi.database.ISQLDataBase;
@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class UserBoostersDBLoader extends AbstractSqlDataBaseLoader<UserBoostersDbModel> {
+public class UserBoostersDBLoader extends AbstractSqlDataBaseLoader<UserBoosters> {
 
     private final UserBoosterDBLoader userBoosterDbLoader;
     private final ISQLDataBase dataBase = DatabasesApiPlugin.getApi().getCurrentSqlDataBase();
@@ -34,7 +34,7 @@ public class UserBoostersDBLoader extends AbstractSqlDataBaseLoader<UserBoosters
                 UUID uuid = UUID.fromString(resultSet.getString("uuid"));
                 List<UserBooster> boosters = getBoosters(uuid);
 
-                UserBoostersDbModel userBoostersDbModel = new UserBoostersImpl(uuid,boosters);
+                UserBoosters userBoostersDbModel = new UserBoostersImpl(uuid,boosters);
 
                 this.addObject(userBoostersDbModel);
             }

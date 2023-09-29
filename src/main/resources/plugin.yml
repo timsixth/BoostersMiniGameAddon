@@ -1,6 +1,6 @@
 name: BoostersMiniGameAddon
 main: pl.timsixth.boostersaddon.BoostersMiniGameAddon
-version: '1.0.0'
+version: '1.1.0'
 author: timsixth
 api-version: 1.13
 depend:

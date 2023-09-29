@@ -7,7 +7,7 @@ import pl.timsixth.boostersaddon.config.Messages;
 import pl.timsixth.boostersaddon.gui.MenuManager;
 import pl.timsixth.boostersaddon.manager.UserBoostersManager;
 import pl.timsixth.boostersaddon.model.user.UserBooster;
-import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBoosters;
 import pl.timsixth.guilibrary.core.model.Menu;
 import pl.timsixth.minigameapi.api.command.SubCommand;
 
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class PlayerBoosterSubCommand implements SubCommand {
 
     private final Messages messages;
-    private final UserBoostersManager<UserBoostersDbModel> userBoostersManager;
+    private final UserBoostersManager userBoostersManager;
     private final MenuManager menuManager;
 
     @Override
@@ -28,14 +28,14 @@ public class PlayerBoosterSubCommand implements SubCommand {
 
         if (args.length == 2) {
             if (args[1].equalsIgnoreCase("list")) {
-                Optional<UserBoostersDbModel> userOptional = userBoostersManager.getUserByUuid(player.getUniqueId());
+                Optional<UserBoosters> userOptional = userBoostersManager.getUserByUuid(player.getUniqueId());
                 Optional<Menu> menuOptional = menuManager.getMenuByName("yourBoosters");
 
                 List<UserBooster> userBoosterList = Collections.emptyList();
 
                 if (!menuOptional.isPresent()) return true;
                 if (userOptional.isPresent()) {
-                    UserBoostersDbModel userBoostersDbModel = userOptional.get();
+                    UserBoosters userBoostersDbModel = userOptional.get();
                     userBoosterList = userBoostersDbModel.getBoosters();
                 }
 

@@ -1,6 +1,8 @@
 package pl.timsixth.boostersaddon.model;
 
-public interface Booster {
+import pl.timsixth.minigameapi.api.model.Model;
+
+public interface Booster extends Model {
 
     String getName();
 

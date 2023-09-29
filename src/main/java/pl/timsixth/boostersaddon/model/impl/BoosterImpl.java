@@ -3,8 +3,9 @@ package pl.timsixth.boostersaddon.model.impl;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import pl.timsixth.boostersaddon.model.BoosterFileModel;
+import pl.timsixth.boostersaddon.model.Booster;
 import pl.timsixth.boostersaddon.model.BoosterType;
+import pl.timsixth.minigameapi.api.file.FileModel;
 import pl.timsixth.minigameapi.api.file.SingleFileModel;
 import pl.timsixth.minigameapi.api.file.annotaions.IdSection;
 import pl.timsixth.minigameapi.api.file.annotaions.SingleFile;
@@ -15,7 +16,7 @@ import java.util.Map;
 @Getter
 @Setter
 @SingleFile(fileName = "boosters.yml", primarySection = "boosters")
-public class BoosterImpl extends SingleFileModel implements BoosterFileModel {
+public class BoosterImpl extends SingleFileModel implements Booster, FileModel {
 
     @IdSection
     private final String name;

@@ -3,7 +3,7 @@ package pl.timsixth.boostersaddon.model.user.impl;
 import lombok.Getter;
 import org.bukkit.Material;
 import pl.timsixth.boostersaddon.model.Booster;
-import pl.timsixth.boostersaddon.model.user.UserBoosterDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBooster;
 import pl.timsixth.databasesapi.database.query.QueryBuilder;
 import pl.timsixth.guilibrary.core.model.MenuItem;
 import pl.timsixth.guilibrary.core.model.action.custom.NoneClickAction;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Getter
-public class UserBoosterImpl extends AbstractDbModel implements UserBoosterDbModel {
+public class UserBoosterImpl extends AbstractDbModel implements UserBooster {
 
     @Id
     private final UUID uuid;

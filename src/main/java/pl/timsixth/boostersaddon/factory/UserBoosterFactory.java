@@ -1,9 +1,8 @@
 package pl.timsixth.boostersaddon.factory;
 
-import pl.timsixth.boostersaddon.model.BoosterFileModel;
+import pl.timsixth.boostersaddon.model.Booster;
 import pl.timsixth.boostersaddon.model.BoosterType;
 import pl.timsixth.boostersaddon.model.TemporaryBooster;
-import pl.timsixth.boostersaddon.model.TemporaryBoosterFileModel;
 import pl.timsixth.boostersaddon.model.user.UserBooster;
 import pl.timsixth.boostersaddon.model.user.impl.UserBoosterImpl;
 
@@ -12,9 +11,9 @@ import java.util.UUID;
 
 public final class UserBoosterFactory {
 
-    public static UserBooster createUserBooster(UUID uuid, BoosterFileModel boosterFileModel) {
+    public static UserBooster createUserBooster(UUID uuid, Booster boosterFileModel) {
         if (boosterFileModel.getType() == BoosterType.TEMPORARY) {
-            TemporaryBoosterFileModel booster = (TemporaryBoosterFileModel) boosterFileModel;
+            TemporaryBooster booster = (TemporaryBooster) boosterFileModel;
             LocalDateTime now = LocalDateTime.now();
 
             return new UserBoosterImpl(uuid, booster, now, endDate(now, booster));

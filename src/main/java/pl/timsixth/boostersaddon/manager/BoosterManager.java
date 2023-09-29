@@ -5,13 +5,11 @@ import pl.timsixth.boostersaddon.model.Booster;
 import java.util.List;
 import java.util.Optional;
 
-public interface BoosterManager<T extends Booster> {
+public interface BoosterManager {
 
-    Optional<T> getBoosterByName(String name);
+    Optional<Booster> getBoosterByName(String name);
 
-    void addBooster(T booster);
+    void addBooster(Booster booster);
 
-    void removeBooster(T booster);
-
-    List<T> getBoosters();
+    List<Booster> getBoosters();
 }

@@ -3,7 +3,8 @@ package pl.timsixth.boostersaddon.model.impl;
 import lombok.Getter;
 import lombok.NonNull;
 import pl.timsixth.boostersaddon.model.BoosterType;
-import pl.timsixth.boostersaddon.model.TemporaryBoosterFileModel;
+import pl.timsixth.boostersaddon.model.TemporaryBooster;
+import pl.timsixth.minigameapi.api.file.FileModel;
 import pl.timsixth.minigameapi.api.file.annotaions.SingleFile;
 
 import java.util.LinkedHashMap;
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 @SingleFile(fileName = "boosters.yml", primarySection = "boosters")
-public class TemporaryBoosterImpl extends BoosterImpl implements TemporaryBoosterFileModel {
+public class TemporaryBoosterImpl extends BoosterImpl implements TemporaryBooster, FileModel {
 
     private final int time;
     private final TimeUnit timeUnit;

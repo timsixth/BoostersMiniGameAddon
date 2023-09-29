@@ -2,19 +2,20 @@ package pl.timsixth.boostersaddon.model.user.impl;
 
 import lombok.Getter;
 import pl.timsixth.boostersaddon.model.user.UserBooster;
-import pl.timsixth.boostersaddon.model.user.UserBoosterDbModel;
-import pl.timsixth.boostersaddon.model.user.UserBoostersDbModel;
+import pl.timsixth.boostersaddon.model.user.UserBoosters;
 import pl.timsixth.databasesapi.database.query.QueryBuilder;
 import pl.timsixth.minigameapi.api.MiniGame;
 import pl.timsixth.minigameapi.api.database.AbstractDbModel;
 import pl.timsixth.minigameapi.api.database.annoations.Id;
+import pl.timsixth.minigameapi.api.model.Deletable;
+import pl.timsixth.minigameapi.api.model.Savable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class UserBoostersImpl extends AbstractDbModel implements UserBoostersDbModel {
+public class UserBoostersImpl extends AbstractDbModel implements UserBoosters {
 
     @Id
     private final UUID uuid;
@@ -63,7 +64,7 @@ public class UserBoostersImpl extends AbstractDbModel implements UserBoostersDbM
 
         executeUpdate(insert);
 
-        boosters.forEach(userBooster -> ((UserBoosterDbModel) userBooster).save());
+        boosters.forEach(Savable::save);
 
         return this;
     }
@@ -76,16 +77,16 @@ public class UserBoostersImpl extends AbstractDbModel implements UserBoostersDbM
 
         executeUpdate(query);
 
-        boosters.forEach(userBooster -> ((UserBoosterDbModel) userBooster).delete());
+        boosters.forEach(Deletable::delete);
 
         return true;
     }
 
     @Override
     public Object update() {
-        boosters.forEach(userBooster -> ((UserBoosterDbModel) userBooster).delete());
+        boosters.forEach(Deletable::delete);
 
-        boosters.forEach(userBooster -> ((UserBoosterDbModel) userBooster).save());
+        boosters.forEach(Savable::save);
 
         return this;
     }
