@@ -100,7 +100,7 @@ public class BoostersMiniGameAddon extends JavaPlugin {
         UserBoosterDBLoader userBoosterDbLoader = new UserBoosterDBLoader(boosterManager);
         userBoostersDBLoader = new UserBoostersDBLoader(userBoosterDbLoader);
 
-        Loaders loaders = new Loaders(MiniGame.getInstance().getDefaultPluginConfiguration());
+        Loaders loaders = new Loaders(MiniGame.getInstance().getPluginConfiguration());
 
         loaders.registerLoaders(boosterFileLoader, userBoosterDbLoader, userBoostersDBLoader);
         loaders.load(boosterFileLoader, userBoosterDbLoader, userBoostersDBLoader);

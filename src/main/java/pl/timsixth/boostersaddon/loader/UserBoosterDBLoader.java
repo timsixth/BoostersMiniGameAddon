@@ -8,7 +8,6 @@ import pl.timsixth.boostersaddon.model.user.impl.UserBoosterImpl;
 import pl.timsixth.databasesapi.DatabasesApiPlugin;
 import pl.timsixth.databasesapi.database.ISQLDataBase;
 import pl.timsixth.databasesapi.database.query.QueryBuilder;
-import pl.timsixth.minigameapi.api.MiniGame;
 import pl.timsixth.minigameapi.api.loader.database.AbstractSqlDataBaseLoader;
 
 import java.sql.ResultSet;
@@ -59,9 +58,8 @@ public class UserBoosterDBLoader extends AbstractSqlDataBaseLoader<UserBooster> 
         }
     }
 
-
     @Override
-    public void load() {
-        load(MiniGame.getInstance().getDefaultPluginConfiguration().getTablesPrefix() + "user_booster");
+    protected String getTableName() {
+        return "user_booster";
     }
 }
