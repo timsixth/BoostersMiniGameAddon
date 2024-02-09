@@ -91,3 +91,9 @@ guis:
           args:
             - ''
 ```
+## Integration with addon
+In your minigame, please add below code, in `WinGameState`
+
+```java
+ Bukkit.getPluginManager().callEvent(new PlayerWinGameEvent(player, game, (int) settings.getCostOfWin()));
+``` 
