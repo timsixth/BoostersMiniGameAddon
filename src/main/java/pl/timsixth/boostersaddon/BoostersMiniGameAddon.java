@@ -3,7 +3,6 @@ package pl.timsixth.boostersaddon;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.plugin.java.JavaPlugin;
 import pl.timsixth.boostersaddon.config.ConfigFile;
 import pl.timsixth.boostersaddon.config.Messages;
 import pl.timsixth.boostersaddon.config.Settings;
@@ -31,13 +30,12 @@ import pl.timsixth.guilibrary.core.GUIApi;
 import pl.timsixth.guilibrary.core.manager.YAMLMenuManager;
 import pl.timsixth.guilibrary.processes.ProcessesModule;
 import pl.timsixth.minigameapi.api.MiniGame;
-import pl.timsixth.minigameapi.api.command.ParentCommand;
-import pl.timsixth.minigameapi.api.loader.Loaders;
+import pl.timsixth.minigameapi.api.addon.MiniGameAddon;
 
 import java.util.Arrays;
 
 @Getter
-public class BoostersMiniGameAddon extends JavaPlugin {
+public class BoostersMiniGameAddon extends MiniGameAddon {
 
     private GUIApi guiApi;
     private Messages messages;
@@ -52,6 +50,8 @@ public class BoostersMiniGameAddon extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        super.onEnable();
+
         this.getConfig().options().copyDefaults(true);
         saveConfig();
 
@@ -100,18 +100,13 @@ public class BoostersMiniGameAddon extends JavaPlugin {
         UserBoosterDBLoader userBoosterDbLoader = new UserBoosterDBLoader(boosterManager);
         userBoostersDBLoader = new UserBoostersDBLoader(userBoosterDbLoader);
 
-        Loaders loaders = new Loaders(MiniGame.getInstance().getPluginConfiguration());
-
-        loaders.registerLoaders(boosterFileLoader, userBoosterDbLoader, userBoostersDBLoader);
-        loaders.load(boosterFileLoader, userBoosterDbLoader, userBoostersDBLoader);
+        getLoaders().registerLoaders(boosterFileLoader, userBoosterDbLoader, userBoostersDBLoader);
+        getLoaders().load(boosterFileLoader, userBoosterDbLoader, userBoostersDBLoader);
     }
 
     private void registerSubCommands() {
-        ParentCommand adminCommand = MiniGame.getInstance().getAdminCommand();
-        ParentCommand playerCommand = MiniGame.getInstance().getPlayerCommand();
-
-        adminCommand.addSubCommand(new AdminBoosterSubCommand(messages, settings, menuManager, boosterManager, userBoostersManager));
-        playerCommand.addSubCommand(new PlayerBoosterSubCommand(messages, userBoostersManager, (MenuManager) menuManager));
+        addAdminSubCommand(new AdminBoosterSubCommand(messages, settings, menuManager, boosterManager, userBoostersManager));
+        addPlayerSubCommand(new PlayerBoosterSubCommand(messages, userBoostersManager, (MenuManager) menuManager));
     }
 
     private void initMigrations() {

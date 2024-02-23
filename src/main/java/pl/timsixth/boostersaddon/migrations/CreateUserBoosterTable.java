@@ -13,7 +13,7 @@ public class CreateUserBoosterTable implements ICreationMigration {
 
     @Override
     public String getTableName() {
-        return MiniGame.getInstance().getDefaultPluginConfiguration().getTablesPrefix() + "user_booster";
+        return MiniGame.getInstance().getPluginConfiguration().getTablesPrefix() + "user_booster";
     }
 
     @Override

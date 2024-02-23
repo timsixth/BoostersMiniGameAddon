@@ -53,7 +53,7 @@ public class UserBoostersImpl extends AbstractDbModel implements UserBoosters {
 
     @Override
     public String getTableName() {
-        return MiniGame.getInstance().getDefaultPluginConfiguration().getTablesPrefix() + "user_boosters";
+        return MiniGame.getInstance().getPluginConfiguration().getTablesPrefix() + "user_boosters";
     }
 
     @Override
