@@ -1,8 +1,8 @@
 # BoostersMiniGameAddon
 
 > [!CAUTION]
-> This plugin will not be supported.
-> The addons system in T-MiniGameAPI will be removed in v2.2.0.
+> This plugin will not be supported.<br>
+> The addons system in T-MiniGameAPI will be removed in v2.2.0.<br>
 > This plugin will be replaced by module.
 
 This plugin is a addon to every minigame which uses T-MiniGameAPI.<br>
